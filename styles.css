@@ -253,6 +253,135 @@ img { max-width: 100%; display: block; }
 .code .str { color: #facc15; }
 .code .fn { color: #4ade80; }
 
+/* ===== Profile card (hero photo) ===== */
+.profile-card {
+  padding: 48px 36px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  position: relative;
+}
+.profile-ring {
+  position: relative;
+  width: 220px; height: 220px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--gradient);
+  padding: 4px;
+  animation: ring-spin 8s linear infinite;
+}
+@keyframes ring-spin {
+  to { filter: hue-rotate(360deg); }
+}
+.profile-ring::before {
+  content: ''; position: absolute; inset: -16px;
+  border-radius: 50%;
+  background: var(--gradient);
+  filter: blur(40px); opacity: 0.45; z-index: -1;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.06); }
+}
+.profile-photo-wrap {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-soft);
+  border: 4px solid var(--bg-soft);
+}
+.profile-photo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.profile-card:hover .profile-photo { transform: scale(1.06); }
+.profile-info { position: relative; z-index: 2; }
+.profile-name {
+  font-size: 1.6rem; font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.profile-role {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+.profile-meta {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 16px;
+  color: var(--text-mute);
+  font-size: 0.82rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.profile-meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+
+/* Floating tech badges around photo */
+.profile-photo-area {
+  position: relative;
+  width: 100%;
+  display: grid; place-items: center;
+  padding: 30px 0;
+}
+.fb {
+  position: absolute;
+  padding: 7px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text);
+  white-space: nowrap;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  z-index: 3;
+  animation: float-badge 6s ease-in-out infinite;
+}
+.fb::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); margin-right: 6px;
+  vertical-align: middle;
+}
+.fb-1 { top: 10px; left: 10px; animation-delay: 0s; }
+.fb-1::before { background: #3776ab; }
+.fb-2 { top: 30px; right: 10px; animation-delay: -1.5s; }
+.fb-2::before { background: var(--accent-3); }
+.fb-3 { bottom: 50px; left: -10px; animation-delay: -2.5s; }
+.fb-3::before { background: var(--accent-2); }
+.fb-4 { bottom: 20px; right: -5px; animation-delay: -1s; }
+.fb-4::before { background: #336791; }
+.fb-5 { top: 50%; left: 0; transform: translateY(-50%); animation-delay: -3s; }
+.fb-5::before { background: #1f65b6; }
+
+@keyframes float-badge {
+  0%,100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+.fb-5 {
+  animation: float-badge-side 6s ease-in-out infinite;
+  animation-delay: -3s;
+}
+@keyframes float-badge-side {
+  0%,100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(8px); }
+}
+
+@media (max-width: 980px) {
+  .profile-ring { width: 180px; height: 180px; }
+}
+@media (max-width: 600px) {
+  .fb { display: none; }
+  .profile-ring { width: 160px; height: 160px; }
+}
+
 /* ===== Sections ===== */
 .section {
   padding: 120px 6vw;
