@@ -67,6 +67,21 @@ if (card && window.matchMedia('(min-width: 980px)').matches) {
   });
 }
 
+// ===== Journey tabs (Expériences / Formation) =====
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabPanels = { exp: document.getElementById('tab-exp'), edu: document.getElementById('tab-edu') };
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.tab;
+    tabBtns.forEach(b => b.classList.toggle('active', b === btn));
+    Object.entries(tabPanels).forEach(([k, el]) => {
+      if (!el) return;
+      if (k === target) { el.hidden = false; el.style.animation = 'fadeInUp 0.5s ease both'; }
+      else el.hidden = true;
+    });
+  });
+});
+
 // ===== Smooth nav active state =====
 const navLinks = document.querySelectorAll('.nav-links a');
 const sections = document.querySelectorAll('section[id]');
